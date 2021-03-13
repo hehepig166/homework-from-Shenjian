@@ -1,6 +1,6 @@
 # homework-from-Shenjian
 
-# hit
+# hint
 不同分支有不同课程/时期的作业内容
 
 # 2020-fall
