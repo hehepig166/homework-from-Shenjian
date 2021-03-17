@@ -15,33 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\common\cmd_console_tools.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\common\hehepigDraw.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="90-02-b1-star_main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="..\common\hehepigIO.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="90-02-b1-star_play.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\common\hehepigMenu.cpp">
+    <ClCompile Include="test-hehepigIO.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\cmd_console_tools.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\hehepigDraw.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="90-02-b1-star_play.h">
+    <ClInclude Include="..\include\hehepigIO.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

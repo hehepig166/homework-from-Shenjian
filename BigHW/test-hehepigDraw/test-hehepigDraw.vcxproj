@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{ebd3c6da-0f65-4d74-96db-6c6cc93ef5a0}</ProjectGuid>
-    <RootNamespace>My9002b1</RootNamespace>
+    <ProjectGuid>{7421ccd7-9f94-459c-aefe-b68c2f322530}</ProjectGuid>
+    <RootNamespace>testhehepigDraw</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,17 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\hehepigDraw.h" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="..\common\cmd_console_tools.cpp" />
     <ClCompile Include="..\common\hehepigDraw.cpp" />
     <ClCompile Include="..\common\hehepigIO.cpp" />
-    <ClCompile Include="..\common\hehepigMenu.cpp" />
-    <ClCompile Include="90-02-b1-star_main.cpp" />
-    <ClCompile Include="90-02-b1-star_play.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\include\cmd_console_tools.h" />
-    <ClInclude Include="..\include\hehepigDraw.h" />
-    <ClInclude Include="90-02-b1-star_play.h" />
+    <ClCompile Include="test-hehepigDraw.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

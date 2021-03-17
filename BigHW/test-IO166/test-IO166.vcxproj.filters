@@ -15,21 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="90-01-b1-hanoi_main.cpp">
+    <ClCompile Include="..\common\hehepigIO.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="90-01-b1-hanoi_multiple_solutions.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\common\cmd_console_tools.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\common\hanoi_menu.cpp">
+    <ClCompile Include="..\test-hehepigIO\test-hehepigIO.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\90-01-b1-hanoi.h">
+    <ClInclude Include="..\include\hehepigIO.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

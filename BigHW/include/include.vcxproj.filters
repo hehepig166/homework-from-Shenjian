@@ -24,5 +24,17 @@
     <ClInclude Include="90-01-b2-mine_sweeper.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="90-02-b1-star.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="hehepigIO.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="hehepigDraw.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="hehepigMenu.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

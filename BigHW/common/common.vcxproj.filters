@@ -18,16 +18,25 @@
     <ClCompile Include="cmd_console_tools.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="hanoi_menu.cpp">
+    <ClCompile Include="90-01-b2-mine_sweeper_graph.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="mine_sweeper_menu.cpp">
+    <ClCompile Include="90-01-b2-mine_sweeper_menu.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="mine_sweeper_graph.cpp">
+    <ClCompile Include="90-01-b2-mine_sweeper_tools.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="mine_sweeper_tools.cpp">
+    <ClCompile Include="90-01-b1-hanoi_menu.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="hehepigIO.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="hehepigDraw.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="hehepigMenu.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

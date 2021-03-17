@@ -123,11 +123,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="hanoi_menu.cpp" />
+    <ClCompile Include="90-01-b2-mine_sweeper_graph.cpp" />
+    <ClCompile Include="90-01-b2-mine_sweeper_menu.cpp" />
+    <ClCompile Include="90-01-b2-mine_sweeper_tools.cpp" />
+    <ClCompile Include="90-01-b1-hanoi_menu.cpp" />
     <ClCompile Include="cmd_console_tools.cpp" />
-    <ClCompile Include="mine_sweeper_graph.cpp" />
-    <ClCompile Include="mine_sweeper_menu.cpp" />
-    <ClCompile Include="mine_sweeper_tools.cpp" />
+    <ClCompile Include="hehepigDraw.cpp" />
+    <ClCompile Include="hehepigIO.cpp" />
+    <ClCompile Include="hehepigMenu.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
