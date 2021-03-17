@@ -284,7 +284,7 @@ void DigitalPlay::Begin(int Mode) {
 
         if (P->CheckFail()) {
             cct_setcolor(0, COLOR_RED);
-            cout << "结束，总得分：" << << P->Score << " = " << P->OldScore << " + " << P->Score - P->OldScore << endl;
+            cout << "结束，总得分：" << P->Score << " = " << P->OldScore << " + " << P->Score - P->OldScore << endl;
             HBM.DigitalLogError("\n按q返回菜单\n");
             cct_setcolor();
             GetKey('q', 'q');
