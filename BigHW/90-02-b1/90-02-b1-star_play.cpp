@@ -48,6 +48,10 @@ public:
     int vis[MaxN][MaxN];    // 辅助搜索用的数组
     int ConCnt;             // 存搜索到的个数
 
+    int OldScore;           // 上一次操作后的总得分
+    int Score;              // 总得分
+    int Num;                // 还剩的星星数
+
     /// <summary>
     /// 读入行列，新建地图
     /// </summary>
@@ -63,6 +67,10 @@ public:
                 vis[i][j] = 0;
                 Map[i][j] = RAN(1, ColNum);
             }
+
+        OldScore = 0;
+        Score = 0;
+        Num = 0;
     }
 
     /// <summary>
@@ -76,7 +84,7 @@ public:
         for (int i = 0; i < Row; i++)
             for (int j = 0; j < Col; j++)
                 vis[i][j] = 0;
-        ConCnt = -1;    //-1是为了让最后得到的不包含自己
+        ConCnt = 0;    //-1是为了让最后得到的不包含自己
 
         FindConnected(x, y, Row, Col, Map, vis, &ConCnt);
         return ConCnt;
@@ -90,6 +98,11 @@ public:
             for (int j = 0; j < Col; j++)
                 if (vis[i][j])
                     Map[i][j] = vis[i][j] = 0;
+
+        Num -= ConCnt;
+        OldScore = Score;
+        Score += (ConCnt * ConCnt * 5);
+        
     }
 
     /// <summary>
@@ -110,8 +123,8 @@ public:
     /// </summary>
     void Left() {
         int tmp[MaxN] = { 0 };
-        int i, j, jj, cnt, tcnt;
-        for (j = 0, cnt = 0, tcnt; j < Col; j++) {
+        int i, j, jj, cnt, tcnt = 0;
+        for (j = 0, cnt = 0; j < Col; j++) {
             for (i = tcnt = 0; i < Row; i++)
                 tcnt += (Map[i][j] != 0);
             tmp[j] = cnt;
@@ -125,7 +138,7 @@ public:
             for (i = 0; i < Row; i++)
                 Map[i][jj] = 0;
         }
-        
+
     }
 
     /// <summary>
@@ -134,8 +147,13 @@ public:
     bool CheckFail() {
         for (int i = 0; i < Row; i++)
             for (int j = 0; j < Col; j++)
-                if (Find(i, j))
+                if (Find(i, j)>1)
                     return false;
+
+
+        OldScore = Score;
+        Score += Num > 10 ? 0 : (10 - Num) * 10;
+
         return true;
     }
 
@@ -144,12 +162,12 @@ public:
     /// 将当前矩阵信息更新到 HBM 中
     /// </summary>
     /// <param name="HBM"></param>
-    void Upgrade(hehepig_block_map *HBM) {
+    void Upgrade(hehepig_block_map* HBM) {
         for (int i = 0; i < Row; i++)
             for (int j = 0; j < Col; j++) {
                 HBM->A[i][j].Val = Map[i][j];
                 HBM->A[i][j].BgColor = HBMCOL[Map[i][j]];
-                HBM->A[i][j].FtColor = (Map[i][j]==0 || vis[i][j]) ? COLOR_WHITE : COLOR_BLACK;
+                HBM->A[i][j].FtColor = (Map[i][j] == 0 || vis[i][j]) ? COLOR_WHITE : COLOR_BLACK;
             }
     }
 };
@@ -183,7 +201,7 @@ void DigitalPlay::GetXY(int& x, int& y) {
             break;
     }
     putchar(x + 'A');   //回显
-    y = GetKey('0', '0' + Col - 1,1)-'0';
+    y = GetKey('0', '0' + Col - 1, 1) - '0';
 }
 
 
@@ -197,80 +215,84 @@ void DigitalPlay::Begin(int Mode) {
     Init();
 
     int nxtX, nxtY;
-      
+
+    while (1) {
         while (1) {
-            while (1) {
-                GetXY(nxtX, nxtY);
-                if (P->Find(nxtX, nxtY)) {
-                    HBM.DigitalLogError("\n此处有效，以下是搜索结果：（白色字表示可笑的星星）\n");
-                    P->Upgrade(&HBM);
-                    HBM.DigitalPrint();
-                    break;
-                }
-                else {
-                    HBM.DigitalLogError("\n无效输入或此处星星不可消\n");
-                }
-            }
-
-            if (Mode == 'A') {  //=======================================================A
-                HBM.DigitalLogError("\n结束，按q返回菜单\n");
-                GetKey('q', 'q');
-                return;
-            }
-
-            HBM.DigitalLogError("\n是否消灭星星？\n");
-            const char* tmpstr[] = { "确认选择操作","重来选择操作" ,"放弃游戏" };
-            int opr = Menu_char(3, "YNQ", tmpstr);
-            opr = toupper(opr);
-            putchar(opr);
-            puts("");
-            if (opr == 'N')
-                continue;
-            else if (opr == 'Q') {
-                return;
-            }
-            else if (opr == 'Y') {
-                // 确认删除
-                P->Confirm();
+            GetXY(nxtX, nxtY);
+            if (P->Find(nxtX, nxtY)>1) {
+                HBM.DigitalLogError("\n此处有效，以下是搜索结果：（白色字表示可笑的星星）\n");
                 P->Upgrade(&HBM);
-                HBM.DigitalLogError("\n删除后：\n");
                 HBM.DigitalPrint();
-                HBM.DigitalLogError("\n按回车键继续（往下块挪）\n");
-                GetKey('\r', '\r');
-
-                // 往下块挪
-                P->Down();
-                P->Upgrade(&HBM);
-
-                for (int i = 0; i < Row; i++) {
-                    for (int j = 0; j < Col; j++)
-                        cout << P->Map[i][j] << " ";
-                    puts("");
-                }
-
-                HBM.DigitalPrint();
-                HBM.DigitalLogError("\n按回车键继续（往左列挪）\n");
-                GetKey('\r', '\r');
-
-                // 往左列挪
-                P->Left();
-                P->Upgrade(&HBM);
-                HBM.DigitalPrint();   
+                break;
             }
-
-            if (Mode == 'B') {  //=======================================================B
-                HBM.DigitalLogError("\n结束，按q返回菜单\n");
-                GetKey('q', 'q');
-                return;
-            }
-
-            if (P->CheckFail()) {
-                cct_setcolor(0, COLOR_RED);
-                HBM.DigitalLogError("\n结束，按q返回菜单\n");
-                cct_setcolor();
-                GetKey('q', 'q');
-                return;
+            else {
+                HBM.DigitalLogError("\n无效输入或此处星星不可消\n");
             }
         }
+
+        if (Mode == 'A') {  //=======================================================A
+            HBM.DigitalLogError("\n结束，按q返回菜单\n");
+            GetKey('q', 'q');
+            return;
+        }
+
+        HBM.DigitalLogError("\n是否消灭星星？\n");
+        const char* tmpstr[] = { "确认选择操作","重来选择操作" ,"放弃游戏" };
+        int opr = Menu_char(3, "YNQ", tmpstr);
+        opr = toupper(opr);
+        putchar(opr);
+        puts("");
+        if (opr == 'N')
+            continue;
+        else if (opr == 'Q') {
+            return;
+        }
+        else if (opr == 'Y') {
+            // 确认删除
+            P->Confirm();
+            P->Upgrade(&HBM);
+            HBM.DigitalLogError("\n删除后：\n");
+            HBM.DigitalPrint();
+            HBM.DigitalLogError("\n按回车键继续（往下块挪）\n");
+            GetKey('\r', '\r');
+
+            // 往下块挪
+            P->Down();
+            P->Upgrade(&HBM);
+
+            for (int i = 0; i < Row; i++) {
+                for (int j = 0; j < Col; j++)
+                    cout << P->Map[i][j] << " ";
+                puts("");
+            }
+
+            HBM.DigitalPrint();
+            HBM.DigitalLogError("\n按回车键继续（往左列挪）\n");
+            GetKey('\r', '\r');
+
+            // 往左列挪
+            P->Left();
+            P->Upgrade(&HBM);
+            HBM.DigitalPrint();
+        }
+
+        if (Mode == 'B') {  //=======================================================B
+            HBM.DigitalLogError("\n结束，按q返回菜单\n");
+            GetKey('q', 'q');
+            return;
+        }
+
+        if (P->CheckFail()) {
+            cct_setcolor(0, COLOR_RED);
+            cout << "结束，总得分：" << << P->Score << " = " << P->OldScore << " + " << P->Score - P->OldScore << endl;
+            HBM.DigitalLogError("\n按q返回菜单\n");
+            cct_setcolor();
+            GetKey('q', 'q');
+            return;
+        }
+        else {
+            cout << "目前得分：" << P->Score << " = "<<P->OldScore <<" + " <<P->Score-P->OldScore <<endl;
+        }
+    }
 
 }
