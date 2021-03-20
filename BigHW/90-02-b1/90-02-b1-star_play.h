@@ -12,17 +12,16 @@ class Play;
 /// </summary>
 class DigitalPlay {
 private:
-    Play* P;
+    Play* P=0;
     hehepig_block_map HBM;
 
-    int Row;
-    int Col;
+    int Row=0;
+    int Col=0;
 
     void GetXY(int& x, int& y);
     void PrintVis();
 
 public:
-    DigitalPlay(){}
     void Init();
     void Begin(int Mode);
 };
@@ -31,7 +30,16 @@ public:
 /// 借助 Draw库 与 Play类 进行色块模式的消灭星星游戏
 /// </summary>
 class GraphicalPlay {
+private:
+    Play* P;
+    hehepig_block_map HBM;
 
-    int Nowx;
-    int Nowy;
+    int Row;
+    int Col;
+
+
+public:
+    void Init();
+    void Begin(int Mode);
+    void GetXY(int& X, int& Y);
 };

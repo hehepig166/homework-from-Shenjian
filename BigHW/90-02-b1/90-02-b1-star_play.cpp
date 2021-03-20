@@ -6,6 +6,7 @@
 #include "../include/hehepigMenu.h"
 #include <ctime>
 #include <iostream>
+#include <windows.h>
 using namespace std;
 
 #define MaxN 10
@@ -37,6 +38,7 @@ void FindConnected(int x, int y, int Row, int Col, int Map[][MaxN], int vis[][Ma
 
 
 /// <summary>
+/// 核心类
 /// 内涵一个 int 矩阵，各种函数对该矩阵操作
 /// </summary>
 class Play {
@@ -70,7 +72,7 @@ public:
 
         OldScore = 0;
         Score = 0;
-        Num = 0;
+        Num = Row * Col;
     }
 
     /// <summary>
@@ -102,11 +104,11 @@ public:
         Num -= ConCnt;
         OldScore = Score;
         Score += (ConCnt * ConCnt * 5);
-        
+
     }
 
     /// <summary>
-    /// 整理A，往下掉消空位
+    /// 整理A，往下掉消空位，返回是否需要更新显示
     /// </summary>
     void Down() {
         for (int j = 0, cur = Row - 1; j < Col; j++, cur = Row - 1) {
@@ -119,7 +121,7 @@ public:
     }
 
     /// <summary>
-    /// 整理A，往左挪消空位
+    /// 整理A，往左挪消空位，返回是否需要更新显示
     /// </summary>
     void Left() {
         int tmp[MaxN] = { 0 };
@@ -130,15 +132,18 @@ public:
             tmp[j] = cnt;
             cnt += (tcnt == 0);
         }
-        for (j = 0, jj = j - tmp[j]; j < Col; j++, jj = j - tmp[j])
+
+        for (j = jj = 0; j < Col; j++) {
+            jj = j - tmp[j];
             for (i = 0; i < Row; i++)
                 Map[i][jj] = Map[i][j];
-
-        while (jj < Col) {
-            for (i = 0; i < Row; i++)
-                Map[i][jj] = 0;
         }
 
+        while (++jj < Col) {
+            for (i = 0; i < Row; i++)
+                Map[i][jj] = 0;
+            jj++;
+        }
     }
 
     /// <summary>
@@ -147,7 +152,7 @@ public:
     bool CheckFail() {
         for (int i = 0; i < Row; i++)
             for (int j = 0; j < Col; j++)
-                if (Find(i, j)>1)
+                if (Find(i, j) > 1)
                     return false;
 
 
@@ -156,6 +161,8 @@ public:
 
         return true;
     }
+
+
 
 
     /// <summary>
@@ -173,53 +180,35 @@ public:
 };
 
 
-///================================================
+
+
+
+
+///================================================================================
 /// DigitalPlay
+/// 数组显式方式
 /// 
-///================================================
-
-void DigitalPlay::Init() {
-    static Play _P;
-    P = &_P;
-    P->Init();
-    Row = P->Row;
-    Col = P->Col;
-
-    HBM = hehepig_block_map(Row, Col);
-    P->Upgrade(&HBM);
-
-    HBM.DigitalLogError("\n前数组：\n");
-    HBM.DigitalPrint();
-
-}
-
-void DigitalPlay::GetXY(int& x, int& y) {
-    HBM.DigitalLogError("\n输入坐标[例：b2] > ");
-    while (1) {
-        x = GetKey();
-        if (isalpha(x) && (x = (toupper(x) - 'A')) < Row)
-            break;
-    }
-    putchar(x + 'A');   //回显
-    y = GetKey('0', '0' + Col - 1, 1) - '0';
-}
-
+///================================================================================
 
 /*****
 A       "命令行找出可消除项并标识",
 B       "命令行完成一次消除（分步骤显示）",
 C       "命令行完成一关（分步骤显示）",
 *****/
+
+
 void DigitalPlay::Begin(int Mode) {
 
-    Init();
+    Init(); // 建地图、初始化
 
     int nxtX, nxtY;
 
     while (1) {
         while (1) {
-            GetXY(nxtX, nxtY);
-            if (P->Find(nxtX, nxtY)>1) {
+
+            GetXY(nxtX, nxtY);      // 从用户获取一个坐标
+
+            if (P->Find(nxtX, nxtY) > 1) {
                 HBM.DigitalLogError("\n此处有效，以下是搜索结果：（白色字表示可笑的星星）\n");
                 P->Upgrade(&HBM);
                 HBM.DigitalPrint();
@@ -260,12 +249,6 @@ void DigitalPlay::Begin(int Mode) {
             P->Down();
             P->Upgrade(&HBM);
 
-            for (int i = 0; i < Row; i++) {
-                for (int j = 0; j < Col; j++)
-                    cout << P->Map[i][j] << " ";
-                puts("");
-            }
-
             HBM.DigitalPrint();
             HBM.DigitalLogError("\n按回车键继续（往左列挪）\n");
             GetKey('\r', '\r');
@@ -282,7 +265,7 @@ void DigitalPlay::Begin(int Mode) {
             return;
         }
 
-        if (P->CheckFail()) {
+        if (P->CheckFail()) {   //=======================================================C
             cct_setcolor(0, COLOR_RED);
             cout << "结束，总得分：" << P->Score << " = " << P->OldScore << " + " << P->Score - P->OldScore << endl;
             HBM.DigitalLogError("\n按q返回菜单\n");
@@ -291,8 +274,160 @@ void DigitalPlay::Begin(int Mode) {
             return;
         }
         else {
-            cout << "目前得分：" << P->Score << " = "<<P->OldScore <<" + " <<P->Score-P->OldScore <<endl;
+            cout << "还剩星星数：" << P->Num << endl;
+            cout << "目前得分：" << P->Score << " = " << P->OldScore << " + " << P->Score - P->OldScore << endl;
         }
     }
+}
+
+void DigitalPlay::Init() {
+    static Play _P;
+    P = &_P;
+    P->Init();
+    Row = P->Row;
+    Col = P->Col;
+
+    HBM = hehepig_block_map(Row, Col);
+    P->Upgrade(&HBM);
+
+    HBM.DigitalLogError("\n前数组：\n");
+    HBM.DigitalPrint();
+
+}
+
+void DigitalPlay::GetXY(int& x, int& y) {
+    HBM.DigitalLogError("\n输入坐标[例：b2] > ");
+    while (1) {
+        x = GetKey();
+        if (isalpha(x) && (x = (toupper(x) - 'A')) < Row)
+            break;
+    }
+    putchar(x + 'A');   //回显
+    y = GetKey('0', '0' + Col - 1, 1) - '0';
+}
+
+
+
+
+
+///================================================================================
+/// GraphicalPlay
+/// 色块显式方式
+/// 
+///================================================================================
+
+void GraphicalPlay::Begin(int Mode) {
+
+    Init();
+
+    int nxtX = 0, nxtY = 0;
+
+    int flag_confirmed = 0;      //用于记录确认信息状态
+
+    while (1) {
+        while (1) {
+            if (!flag_confirmed) {
+                GetXY(nxtX, nxtY);
+            }
+            else {
+                flag_confirmed = 0;
+            }
+
+            if (Mode == 'D') {  //=======================================================================D
+                cout << ("结束，按q返回菜单  ") << '[' << (char)(nxtX + 'A') << ' ' << nxtY << "]                                     ";
+                GetKey('q', 'q');
+                return;
+            }
+
+            //loop1:
+            if (P->Find(nxtX, nxtY) > 1) {
+                P->Upgrade(&HBM);
+                HBM.GraphicalUpgrade();
+                HBM.GraphicalLogError("此处星星可消，左击高亮以确认，左击其它以改选             ");
+                break;
+            }
+            else {
+                HBM.GraphicalLogError("无效输入或此处星星不可消                                 ");
+            }
+
+        }
+
+        // 获取确认信息
+        GetXY(nxtX, nxtY);
+
+        if (P->vis[nxtX][nxtY]) { //确认
+            P->Confirm();
+            P->Upgrade(&HBM);
+            HBM.GraphicalUpgrade();
+
+            HBM.GraphicalLogError("（开始消灭星星）                                              ");
+            Sleep(200);
+
+            // 往下块挪
+            P->Down();
+            P->Upgrade(&HBM);
+            HBM.GraphicalUpgrade();
+            Sleep(200);
+
+            // 往左列挪
+            P->Left();
+            P->Upgrade(&HBM);
+            HBM.GraphicalUpgrade();
+
+            HBM.GraphicalLogError("                                                              ");
+        }
+        else {  //取消
+            flag_confirmed = 1;
+            continue;
+            //goto loop1;
+        }
+
+        if (Mode == 'F') {  //=======================================================B
+            HBM.GraphicalLogError("结束，按q返回菜单                                             ");
+            GetKey('q', 'q');
+            return;
+        }
+
+        if (P->CheckFail()) {   //=======================================================C
+            cct_setcolor(0, COLOR_RED);
+            cout << "结束，总得分：" << P->Score << " = " << P->OldScore << " + " << P->Score - P->OldScore << "                                  " <<endl;
+            HBM.GraphicalLogError("\n按q返回菜单\n");
+            cct_setcolor();
+            GetKey('q', 'q');
+            return;
+        }
+        else {
+            cout << "还剩星星数：" << P->Num << endl;
+            cout << "目前得分：" << P->Score << " = " << P->OldScore << " + " << P->Score - P->OldScore << endl;
+        }
+
+    }
+
+}
+
+
+
+void GraphicalPlay::Init() {
+    static Play _P;
+    P = &_P;
+    P->Init();      //创建地图
+    Row = P->Row;
+    Col = P->Col;
+
+    //调整窗口
+    cct_setconsoleborder(140, 60);
+
+    HBM = hehepig_block_map(Row, Col);
+    HBM.GraphicalInit(Row, Col, 1, 3);  //画出初始边框
+
+    P->Upgrade(&HBM);   //更新 HBM.A 中的信息
+
+    HBM.GraphicalUpgrade();     //更新显示
+}
+
+void GraphicalPlay::GetXY(int& X, int& Y) {
+
+    HBM.GetXY(X, Y);
+    cct_gotoxy(0, 0);
 
 }

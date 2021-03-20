@@ -14,6 +14,10 @@ int main() {
 }
 
 int menu() {
+    int cols, lines, buffer_cols, buffer_lines;
+    cct_getconsoleborder(cols, lines, buffer_cols, buffer_lines);
+
+
     const char* hintStr[] = {
         "命令行找出可消除项并标识",
         "命令行完成一次消除（分步骤显示）",
@@ -34,12 +38,14 @@ int menu() {
         DigitalPlay().Begin(m);
     }
     else if (m >= 'D' && m <= 'G') {
-
+        cct_cls();
+        GraphicalPlay().Begin(m);
     }
     else if (m == 'Q') {
-        return 0;
+        //
     }
 
-    cout << m << endl;
+    cct_setconsoleborder(cols, lines, buffer_cols, buffer_lines);
+    
     return m;
 }
