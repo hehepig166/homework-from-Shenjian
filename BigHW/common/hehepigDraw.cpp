@@ -8,7 +8,7 @@ using namespace std;
 
 
 /// ========================================================================
-/// hehepig_graph
+/// hehepig_block_graph
 /// ╔╦╗
 /// ╠╬╣
 /// ╚╩╝
@@ -17,14 +17,14 @@ using namespace std;
 /// ╚═╝
 /// ========================================================================
 
-#define HG hehepig_graph
+#define HBG hehepig_block_graph
 #define ErrX (Row*BlockSize+4)
 
 /// <summary>
 /// 去窗口 (X,Y) 处(从ULCorner范围起第 X 行第 Y 列)输出字符串 Str (0则不输出)，宽度 Maxlen(-1则原长，否则超出截断，不足补空格)，重复 Rep 次
 /// </summary>
-void HG::GotoPrint(int X, int Y, const char* Str, int BGCol, int FtCol, int MaxLen, int Rep) {
-    cct_gotoxy(LUCornerY + Y * 2 + 2, LUCornerX + X + 1);
+void HBG::GotoPrint(int X, int Y, const char* Str, int BGCol, int FtCol, int MaxLen, int Rep) {
+    cct_gotoxy(LUCornerY + Y * 2 + 2, LUCornerX + X + 1);   // +2 +1 是因为标尺
 
     if (Str != 0) {
         while (Rep--) {
@@ -37,11 +37,11 @@ void HG::GotoPrint(int X, int Y, const char* Str, int BGCol, int FtCol, int MaxL
         }
     }
 }
-void HG::GotoPrintChar(int X, int Y, const char Char, int BGCol, int FtCol) {
+void HBG::GotoPrintChar(int X, int Y, const char Char, int BGCol, int FtCol) {
     cct_gotoxy(LUCornerY + Y * 2 + 2, LUCornerX + X + 1);
     putchar(Char);
 }
-void HG::GotoPrintInt(int X, int Y, const int Int, int BGCol, int FtCol) {
+void HBG::GotoPrintInt(int X, int Y, const int Int, int BGCol, int FtCol) {
     cct_gotoxy(LUCornerY + Y * 2 + 2, LUCornerX + X + 1);
     cout << Int;
 }
@@ -52,36 +52,76 @@ void HG::GotoPrintInt(int X, int Y, const int Int, int BGCol, int FtCol) {
 /// <summary>
 /// 更新显式 this->Blocks[X][Y] 到它该到的位置
 /// </summary>
-void HG::PrintBlock(int X, int Y) {
-    int tmpX = X * BlockSize + 1, tmpY = Y * BlockSize + 1;
+void HBG::PrintBlock(int X, int Y) {
 
-    //框
-    for (int i = BlockSize-2; i >0; i--) {
-        GotoPrint(tmpX, tmpY + i, "═", COL_BF(Blocks[X][Y]));
-        GotoPrint(tmpX + BlockSize - 1, tmpY + i, "═", COL_BF(Blocks[X][Y]));
-        GotoPrint(tmpX + i, tmpY, "║", COL_BF(Blocks[X][Y]));
-        GotoPrint(tmpX + i, tmpY + BlockSize - 1, "║", COL_BF(Blocks[X][Y]));
+    
+    
+
+    if (FrameMode == 1) {
+        int tmpX = X * BlockSize + 1, tmpY = Y * BlockSize + 1;     //+1 是因为标尺
+        //框
+        for (int i = BlockSize - 2; i > 0; i--) {
+            GotoPrint(tmpX, tmpY + i, "═", COL_BF(Blocks[X][Y]));
+            GotoPrint(tmpX + BlockSize - 1, tmpY + i, "═", COL_BF(Blocks[X][Y]));
+            GotoPrint(tmpX + i, tmpY, "║", COL_BF(Blocks[X][Y]));
+            GotoPrint(tmpX + i, tmpY + BlockSize - 1, "║", COL_BF(Blocks[X][Y]));
+        }
+        GotoPrint(tmpX, tmpY, "╔", COL_BF(Blocks[X][Y]));
+        GotoPrint(tmpX, tmpY + BlockSize - 1, "╗", COL_BF(Blocks[X][Y]));
+        GotoPrint(tmpX + BlockSize - 1, tmpY, "╚", COL_BF(Blocks[X][Y]));
+        GotoPrint(tmpX + BlockSize - 1, tmpY + BlockSize - 1, "╝", COL_BF(Blocks[X][Y]));
+
+        //内
+        for (int i = BlockSize - 2; i > 0; i--)
+            for (int j = BlockSize - 2; j > 0; j--)
+                GotoPrint(tmpX + i, tmpY + j, "蛤", COL_BF(Blocks[X][Y]));
     }
-    GotoPrint(tmpX, tmpY, "╔", COL_BF(Blocks[X][Y]));
-    GotoPrint(tmpX, tmpY + BlockSize - 1, "╗", COL_BF(Blocks[X][Y]));
-    GotoPrint(tmpX + BlockSize - 1, tmpY, "╚", COL_BF(Blocks[X][Y]));
-    GotoPrint(tmpX + BlockSize - 1, tmpY + BlockSize - 1, "╝", COL_BF(Blocks[X][Y]));
+    else if (FrameMode == 2) {
+        int tmpX = X * (1+BlockSize) + 1, tmpY = Y * (1+BlockSize) + 1;     //后面的 +1 是因为标尺
+        //框
+        for (int i = BlockSize - 2; i > 0; i--) {
+            GotoPrint(tmpX, tmpY + i, "═", COL_BF(Blocks[X][Y]));
+            GotoPrint(tmpX + BlockSize - 1, tmpY + i, "═", COL_BF(Blocks[X][Y]));
+            GotoPrint(tmpX + i, tmpY, "║", COL_BF(Blocks[X][Y]));
+            GotoPrint(tmpX + i, tmpY + BlockSize - 1, "║", COL_BF(Blocks[X][Y]));
+        }
+        GotoPrint(tmpX, tmpY, "╔", COL_BF(Blocks[X][Y]));
+        GotoPrint(tmpX, tmpY + BlockSize - 1, "╗", COL_BF(Blocks[X][Y]));
+        GotoPrint(tmpX + BlockSize - 1, tmpY, "╚", COL_BF(Blocks[X][Y]));
+        GotoPrint(tmpX + BlockSize - 1, tmpY + BlockSize - 1, "╝", COL_BF(Blocks[X][Y]));
 
-    //内
-    for (int i = BlockSize - 2; i > 0; i--)
-        for (int j = BlockSize - 2; j > 0; j--)
-            GotoPrint(tmpX + i, tmpY + j, "蛤", COL_BF(Blocks[X][Y]));
+        //内
+        for (int i = BlockSize - 2; i > 0; i--)
+            for (int j = BlockSize - 2; j > 0; j--)
+                GotoPrint(tmpX + i, tmpY + j, "蛤", COL_BF(Blocks[X][Y]));
+    }
+    else {
+        puts("Unknown FrameMode in hehepig_block_graph.PrintBlock");
+    }
 
 
 }
 
+/*
 /// <summary>
 /// 根据 this->FrameMode 显式出边框
+/// ╔═╗
+/// ║  ║
+/// ╚═╝
+/// ╔╦╗
+/// ╠╬╣
+/// ╚╩╝
+/// ╔═╗
+/// ║╬║
+/// ╚═╝
 /// </summary>
-void HG::PrintFrame() {
+*/
+void HBG::PrintFrame() {
+
+    /// ╔═╗
+    /// ║  ║
+    /// ╚═╝
     if (FrameMode == 1) {
-
-
         //四角
         GotoPrint(0, 0, "╔", 7, 0);
         GotoPrint(0, Col * BlockSize + 1, "╗", 7, 0);
@@ -98,13 +138,64 @@ void HG::PrintFrame() {
             GotoPrint(i, yy, "║", 7, 0);
         }
 
-        //编号
+        //标尺
         cct_setcolor(0, COLOR_YELLOW);
         for (int i = 0; i < Row; i++)
             GotoPrintChar(i * BlockSize + BlockSize / 2 + 1, -1, 'A' + i);
         for (int i = 0; i < Col; i++)
             GotoPrintInt(-1, i * BlockSize + BlockSize / 2 + 1, i);
         cct_setcolor();
+    }
+
+    /// ╔╦╗
+    /// ╠╬╣
+    /// ╚╩╝
+    else if (FrameMode == 2) {
+        int bs = (BlockSize + 1);
+        //四角
+        GotoPrint(0, 0, "╔", 7, 0);
+        GotoPrint(0, Col * bs, "╗", 7, 0);
+        GotoPrint(Row * bs, 0, "╚", 7, 0);
+        GotoPrint(Row * bs, Col * bs, "╝", 7, 0);
+
+        //四边
+        for (int i = Col * bs-1, xx = Row * bs; i > 0; i--) {
+            (i % bs == 0) ? GotoPrint(0, i, "╦", 7, 0) : GotoPrint(0, i, "═", 7, 0);
+            (i % bs == 0) ? GotoPrint(xx, i, "╩", 7, 0) : GotoPrint(xx, i, "═", 7, 0);
+        }
+        for (int i = Row * bs-1, yy = Col * bs; i > 0; i--) {
+            
+            (i % bs == 0) ? GotoPrint(i, 0, "╠", 7, 0) : GotoPrint(i, 0, "║", 7, 0);
+            (i % bs == 0) ? GotoPrint(i, yy, "╣", 7, 0) : GotoPrint(i, yy, "║", 7, 0);
+        }
+
+        //内边
+        for (int i=Row; i>0; i--)
+            for (int j = Col; j > 0; j--) {
+
+                for (int k = 1; k <= BlockSize; k++) {
+                    if (i < Row)    //块下边界
+                        GotoPrint(i * bs, (j - 1) * bs + k, "═", 7, 0);
+                    if (j <Col)    //块右边界
+                        GotoPrint((i - 1) * bs + k, j * bs, "║", 7, 0);
+                }
+                if (i<Row && j<Col)     //块左上角
+                    GotoPrint(i * bs, j * bs, "╬", 7, 0);
+
+            }
+
+        //标尺
+        cct_setcolor(0, COLOR_YELLOW);
+        for (int i = 0; i < Row; i++)
+            GotoPrintChar(i * BlockSize + BlockSize / 2 + 1, -1, 'A' + i);
+        for (int i = 0; i < Col; i++)
+            GotoPrintInt(-1, i * BlockSize + BlockSize / 2 + 1, i);
+        cct_setcolor();
+    }
+    else {
+        puts("Unknown FrameMode in hehepig_block_graph.PrintFrame");
+        int aaaa = getchar();
+        return;
     }
 }
 
@@ -115,7 +206,7 @@ void HG::PrintFrame() {
 /// <param name="_FrameMode">边框模式</param>
 /// <param name="_BlockSize">色块边长（正方形）</param>
 /// <param name="_LUX, _LUY">总色块窗口左上角所在位置</param>
-void HG::Init(int _Row, int _Col, int _FrameMode, int _BlockSize, int _LUX, int _LUY){
+void HBG::Init(int _Row, int _Col, int _FrameMode, int _BlockSize, int _LUX, int _LUY){
 
     cct_cls();
 
@@ -146,7 +237,7 @@ void HG::Init(int _Row, int _Col, int _FrameMode, int _BlockSize, int _LUX, int 
 /// <summary>
 /// 修改 (X,Y) 处的色块，显式也会修改，改成 B
 /// </summary>
-void HG::ModifyBlock(int X, int Y, hehepig_block B) {
+void HBG::ModifyBlock(int X, int Y, hehepig_block B) {
     if (Blocks[X][Y] != B) {
         Blocks[X][Y] = B;
         PrintBlock(X, Y);
@@ -160,7 +251,7 @@ void HG::ModifyBlock(int X, int Y, hehepig_block B) {
 /// <param name="X,Y">鼠标色块编号将存在这，若鼠标不在色块上则都变成-1</param>
 /// <param name="Status">MAction</param>
 /// <returns>MouseOrKey</returns>
-int HG::ReadKeyMouse(int& X, int& Y, int& MAction, int &k1, int &k2) {
+int HBG::ReadKeyMouse(int& X, int& Y, int& MAction, int &k1, int &k2) {
 
     cct_enable_mouse();
 
@@ -179,13 +270,30 @@ int HG::ReadKeyMouse(int& X, int& Y, int& MAction, int &k1, int &k2) {
             Y = -1;
         }
         else {
-            //第一步
+            //第一步，获取在 HBG 中的像素位置映射，-1是因为标尺
             tmpX = (MX - LUCornerX) - 1;
             tmpY = (MY - LUCornerY) / 2 - 1;
 
-            //第二步
-            tmpX = (tmpX - 1) / BlockSize;
-            tmpY = (tmpY - 1) / BlockSize;
+            if (FrameMode == 1) {
+                //第二步
+                tmpX = (tmpX - 1) / BlockSize;
+                tmpY = (tmpY - 1) / BlockSize;
+            }
+            else if (FrameMode == 2) {
+                if (tmpX % (BlockSize + 1) == 0 || tmpY % (BlockSize + 1) == 0) {   //边框上
+                    tmpX = -1;
+                    tmpY = -1;
+                }
+                else {
+                    tmpX = tmpX / (BlockSize + 1);
+                    tmpY = tmpY / (BlockSize + 1);
+                }
+            }
+            else {
+                puts("Unknown FrameMode in hehepig_block_graph.ReadKeyMouse\nPress Enter");
+                int sasdfdsfsa = getchar();
+                return 0;
+            }
 
             X = tmpX;
             Y = tmpY;
@@ -200,8 +308,37 @@ int HG::ReadKeyMouse(int& X, int& Y, int& MAction, int &k1, int &k2) {
 
 }
 
+
+void HBG::ChangeFrameMode(int _FM) {
+    cct_cls();
+    FrameMode = _FM;
+//以下是重新显示内容
+
+    PrintFrame();
+    //Print blocks
+    for (int i = 0; i < Row; i++)
+        for (int j = 0; j < Col; j++)
+            PrintBlock(i, j);
+
+    GotoPrint(ErrX, 0);
+}
+
+void HBG::ChangeBlockSize(int _BS) {
+    cct_cls();
+    BlockSize = _BS;
+    //以下是重新显示内容
+
+    PrintFrame();
+    //Print blocks
+    for (int i = 0; i < Row; i++)
+        for (int j = 0; j < Col; j++)
+            PrintBlock(i, j);
+
+    GotoPrint(ErrX, 0);
+}
+
 #undef COL_BF
-#undef HG
+#undef HBG
 
 
 
@@ -221,13 +358,37 @@ HBM::hehepig_block_map(int R, int C, int F) {
     BlockSize = 3;
     G = 0;
     LUX = LUY = 0;
+    
 
+    CalcRD();
+    
     for (int i = 0; i < R; i++)
         for (int j = 0; j < C; j++)
             A[i][j] = hehepig_block(0, COLOR_BLACK, COLOR_WHITE);
 
 }
 
+void HBM::CalcRD() {
+    if (FrameMode == 1) {   //注意++是因为标尺
+        RDX = LUX + Row * BlockSize + 1;
+        RDY = LUY + Col * BlockSize + 1;
+
+        RDX++;
+        RDY++;
+    }
+    else if (FrameMode == 2) {  //前面的+1是因为网格，后面的++是因为标尺
+        RDX = LUX + Row * (BlockSize + 1) + 1;
+        RDY = LUY + Col * (BlockSize + 1) + 1;
+
+        RDX++;
+        RDY++;
+    }
+    else {
+        RDX = RDY = 0;
+        puts("Unknown FrameMode in hehepig_block_map.CalcRD");
+        return;
+    }
+}
 
 /// =====================================================
 /// 数组显示模式相关函数
@@ -285,11 +446,14 @@ void HBM::DigitalPrint() {
 
 //新建一个画布并画出初始边框
 void HBM::GraphicalInit(int _Row, int _Col, int _FrameMode, int _BlockSize) {
-    static hehepig_graph _G;
+    static hehepig_block_graph _G;
     G = &_G;
     G->Init(_Row, _Col, _FrameMode, _BlockSize, 2, 0);
     Row = _Row;
     Col = _Col;
+
+    CalcRD();
+
     FrameMode = _FrameMode;
     BlockSize = _BlockSize;
 }
@@ -355,7 +519,7 @@ void HBM::GetXY(int& X, int& Y) {
         }
 
         cct_gotoxy(0, 0);
-        printf("%d (%c %d) %d [%d %d]                                     ", tt, char(X + 'A'), Y, ss, k1, k2);
+        printf("%d (%c %d) %d [%d %d]                                     ", (tX>=0 && tY>=0), char(X + 'A'), Y, ss, k1, k2);
 
         if ((ss == MOUSE_LEFT_BUTTON_CLICK && X==tX && Y==tY) || (k1 == '\r'))
             break;
@@ -363,9 +527,8 @@ void HBM::GetXY(int& X, int& Y) {
 }
 
 void HBM::GraphicalLogError(const char* Str, int addr) {
-    G->GotoPrint(Row * BlockSize + 3 + addr, 0, Str);
+    G->GotoPrint(RDX+2, 0, Str);
     puts("");
 }
-
 
 #undef HBM

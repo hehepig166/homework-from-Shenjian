@@ -324,6 +324,10 @@ void GraphicalPlay::Begin(int Mode) {
 
     int flag_confirmed = 0;      //用于记录确认信息状态
 
+    if (Mode == 'E') {
+        HBM.ChangeFrameMode(2);
+    }
+
     while (1) {
         while (1) {
             if (!flag_confirmed) {

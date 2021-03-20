@@ -5,7 +5,7 @@
 #define MAX_COL 20
 
 /// <summary>
-/// 矩阵地图的一个单元
+/// 矩阵地图的一个单元的信息
 /// </summary>
 class hehepig_block {
 
@@ -26,9 +26,9 @@ public:
 };
 
 /// <summary>
-/// 色块界面-低级
+/// 色块界面-低级（像素级）
 /// </summary>
-class hehepig_graph {
+class hehepig_block_graph {
     int FrameMode=1;
     int BlockSize=3;
     int Row=1;
@@ -41,8 +41,6 @@ class hehepig_graph {
 
 
 public:
-
-    
 
     void GotoPrint(int X, int Y, const char* Str = 0, int BGCol = 0, int FtCol = 7, int MaxLen = -1, int Rep = 1);
     void GotoPrintChar(int X, int Y, const char Char, int BGCol = 0, int FtCol = 7);
@@ -57,6 +55,8 @@ public:
 
     int ReadKeyMouse(int& X, int& Y, int& MAction, int &k1, int &k2);
 
+    void ChangeFrameMode(int _FM);
+    void ChangeBlockSize(int _BS);
     //void ChangeMode(const char* Option, int Val);
     //void LogError(const char* Str);
 
@@ -64,28 +64,43 @@ public:
 
 
 /// <summary>
-/// 矩阵地图界面-高级
+/// 矩阵地图界面-高级（棋盘格级）
 /// </summary>
 class hehepig_block_map {
     int Row;        // 行数
     int Col;        // 列数
-    int FrameMode;   // 边框模式
 
+    int FrameMode;   // 边框模式
     int BlockSize;      //色块边长
 
     int LUX;
     int LUY;
+    int RDX;
+    int RDY;
 
     
 
-    hehepig_graph* G;
+    hehepig_block_graph* G;
 
 public:
 
     hehepig_block A[MAX_ROW][MAX_COL];      // 地图矩阵信息
 
-    hehepig_block_map() :Row(0), Col(0), FrameMode(0), BlockSize(3), LUX(0), LUY(0), G(0) {}
-    hehepig_block_map(int Row, int Col, int FrameMode=0);
+    hehepig_block_map() :Row(0), Col(0), FrameMode(1), BlockSize(3), LUX(0), LUY(0), G(0), RDX(0), RDY(0) {}
+    hehepig_block_map(int Row, int Col, int FrameMode=1);
+    
+    void CalcRD();
+
+    void ChangeFrameMode(int FM) {
+        G->ChangeFrameMode(FM);
+        FrameMode = FM;
+        CalcRD();
+    }
+    void ChangeBlockSize(int BS) {
+        G->ChangeBlockSize(BS);
+        BlockSize = BS;
+        CalcRD();
+    }
 
 
     // 数组模式
@@ -101,6 +116,7 @@ public:
     void GraphicalUpgrade();
     void GetXY(int& X, int& Y);
     void GraphicalLogError(const char* Str, int addr=0);
+    
 
 };
 

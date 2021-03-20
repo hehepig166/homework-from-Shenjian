@@ -43,6 +43,7 @@ int menu() {
     }
     else if (m == 'Q') {
         //
+        return 0;
     }
 
     cct_setconsoleborder(cols, lines, buffer_cols, buffer_lines);
