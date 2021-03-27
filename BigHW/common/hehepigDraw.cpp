@@ -54,11 +54,15 @@ void HBG::GotoPrintInt(int X, int Y, const int Int, int BGCol, int FtCol) {
 /// </summary>
 void HBG::PrintBlock(int X, int Y) {
 
-    
-    
-
     if (FrameMode == 1) {
         int tmpX = X * BlockSize + 1, tmpY = Y * BlockSize + 1;     //+1 是因为标尺
+        if (BlockSize == 1) {
+            GotoPrint(tmpX, tmpY, "  ", COL_BF(Blocks[X][Y]));    //===============
+            //cct_setcolor(Blocks[X][Y].BgColor, Blocks[X][Y].FtColor);
+            //cout <<setw(2) << Blocks[Y][Y].Val;
+            //cct_setcolor();
+            return;
+        }
         //框
         for (int i = BlockSize - 2; i > 0; i--) {
             GotoPrint(tmpX, tmpY + i, "═", COL_BF(Blocks[X][Y]));
@@ -213,7 +217,7 @@ void HBG::Init(int _Row, int _Col, int _FrameMode, int _BlockSize, int _LUX, int
     Row = _Row;
     Col = _Col;
     FrameMode = _FrameMode;
-    BlockSize = max(3,_BlockSize);
+    BlockSize = max(1,_BlockSize);
 
     LUCornerX = _LUX;
     LUCornerY = _LUY;
@@ -527,7 +531,7 @@ void HBM::GetXY(int& X, int& Y) {
 }
 
 void HBM::GraphicalLogError(const char* Str, int addr) {
-    G->GotoPrint(RDX+2, 0, Str);
+    G->GotoPrint(RDX+1, 0, Str);
     puts("");
 }
 

@@ -6,12 +6,14 @@
 /// GetInt 多字符按键返回值的描述
 /// </summary>
 enum {
-    key_left=256,
+    key_left=512,
     key_up,
     key_right,
     key_down,
     key_Fn,
-    key_unknown
+    key_unknown,
+
+    key_none
 };
 
 
@@ -50,3 +52,29 @@ int GetKey(int Echo = 0);
 /// <param name="Echo">回显吗，默认是0（0否 1是）</param>
 /// <returns></returns>
 int GetKey(int Min, int Max, int Echo = 0);
+
+/// <summary>
+/// 读取一个字母，并返回其ASCII值
+/// </summary>
+/// <param name="Mode = 0">返回原字母对应的ASCII</param>
+/// <param name="Mode = 1">返回大写ASCII</param>
+/// <param name="Mode = 2">返回小写ASCII</param>
+/// <param name="Echo">回显吗，默认是0（0否 1是）</param>
+/// <returns>ASCII</returns>
+int GetAlpha(int Mode = 0, int Echo = 0);
+
+/// <summary>
+/// 读取一个字母或数字字符，并返回其ASCII值
+/// </summary>
+/// <param name="Mode = 0">返回原字母对应的ASCII</param>
+/// <param name="Mode = 1">返回大写ASCII</param>
+/// <param name="Mode = 2">返回小写ASCII</param>
+/// <param name="Echo">回显吗，默认是0（0否 1是）</param>
+/// <returns>ASCII</returns>
+int GetAlnum(int Mode = 0, int Echo = 0);
+
+/// <summary>
+/// 不暂停求输入，获得键盘按键信息。
+/// </summary>
+/// <returns>若没按键盘，则返回 tok_none </returns>
+int AskKey();

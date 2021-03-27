@@ -419,7 +419,7 @@ void GraphicalPlay::Init() {
     Col = P->Col;
 
     //调整窗口
-    cct_setconsoleborder(140, 60);
+    //cct_setconsoleborder(140, 60);
 
     HBM = hehepig_block_map(Row, Col);
     HBM.GraphicalInit(Row, Col, 1, 3);  //画出初始边框
