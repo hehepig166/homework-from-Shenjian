@@ -7,6 +7,9 @@
 ||90-01-b2|整合上学期的扫雷游戏|
 ||90-02-b1|消灭星星游戏|
 
+# hint
+BigHW-202104090904.rar 为最改成老师提供的 gmw 伪图形界面工具集之前的最后一次备份。
+
 # demo
 bilibili账号链接：[椿_湫(https://space.bilibili.com/43250497)](https://space.bilibili.com/43250497)
 </br>
