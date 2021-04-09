@@ -140,16 +140,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\common\cmd_console_tools.cpp" />
-    <ClCompile Include="..\common\hehepigDraw.cpp" />
-    <ClCompile Include="..\common\hehepigIO.cpp" />
-    <ClCompile Include="..\common\hehepigMenu.cpp" />
-    <ClCompile Include="90-02-b1-star_main.cpp" />
-    <ClCompile Include="90-02-b1-star_play.cpp" />
+    <ClCompile Include="90-02-b1-main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\cmd_console_tools.h" />
-    <ClInclude Include="..\include\hehepigDraw.h" />
-    <ClInclude Include="90-02-b1-star_play.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

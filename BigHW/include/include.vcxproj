@@ -18,12 +18,6 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="cmd_console_tools.h" />
-    <ClInclude Include="hehepigDraw.h" />
-    <ClInclude Include="hehepigIO.h" />
-    <ClInclude Include="hehepigMenu.h" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{080B4498-614D-4546-A575-DC2CB7AC7433}</ProjectGuid>
@@ -128,6 +122,10 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="cmd_console_tools.h" />
+    <ClInclude Include="cmd_gmw_tools.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

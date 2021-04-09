@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{3e7f0179-f989-4d58-8e58-5c5296db5a90}</ProjectGuid>
+    <ProjectGuid>{d0692950-6a6f-41ff-9912-3f04ac9b48ff}</ProjectGuid>
     <RootNamespace>My9001b1</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -139,18 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\cmd_console_tools.h" />
-    <ClInclude Include="..\include\hehepigIO.h" />
-    <ClInclude Include="..\include\hehepigMenu.h" />
-    <ClInclude Include="hanoi.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\common\cmd_console_tools.cpp" />
-    <ClCompile Include="..\common\hehepigIO.cpp" />
-    <ClCompile Include="..\common\hehepigMenu.cpp" />
-    <ClCompile Include="hanoi_main.cpp" />
-    <ClCompile Include="hanoi_menu.cpp" />
-    <ClCompile Include="hanoi_multiple_solutions.cpp" />
+    <ClCompile Include="90-01-b1-main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
