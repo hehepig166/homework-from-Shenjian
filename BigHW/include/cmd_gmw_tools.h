@@ -1,4 +1,4 @@
-/* 学号 姓名 班级 */
+/* 2051995 朱泽凯 济美 */
 #pragma once
 #include <iostream>
 #include "cmd_console_tools.h"
@@ -197,7 +197,7 @@ typedef struct _console_graphics_info_ {
 	CONSOLE_FONT_TYPE CFT;		//20字节
 
 	/* 是否进行过初始化的标记，如果初始化过，则设置为99999 （不能用true/false判断，因为随机值当bool就是true）*/
-	int inited;
+	int inited = 0;
 
 	/* 整个图形界面的上下左右需要的额外行列数 */
 	int extern_up_lines;

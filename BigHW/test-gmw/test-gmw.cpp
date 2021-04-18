@@ -1,4 +1,4 @@
-/* 学号 姓名 班级 */
+/* 2051995 朱泽凯 济美 */
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <iomanip>
@@ -28,7 +28,7 @@ using namespace std;
 		4、从对应的 lib 目录中删除 lib_tgmw_tools.lib
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------- */
-#define ENABLE_LIB_TGMW_TOOLS			 1
+#define ENABLE_LIB_TGMW_TOOLS			 0
 
 #if ENABLE_LIB_TGMW_TOOLS
 #include "../include/lib_tgmw_tools.h"
@@ -188,7 +188,7 @@ static void test_by_fixed(void)
 		gmw_set_color(&MyCGI, COLOR_BLUE, COLOR_HGREEN);		//修改窗口颜色并级联修改游戏区域、上下状态栏
 		gmw_set_font(&MyCGI, "新宋体", 16, 0);				//TrueType字体（新宋体）宽度不需要，可任意设置
 		gmw_set_frame_style(&MyCGI, 6, 3, true);				//每个色块区域宽度6列*高度3列，要分隔线
-		gmw_set_frame_default_linetype(&MyCGI, 2);			//设置框架线型为预置值2（全部为单线）
+		gmw_set_frame_default_linetype(&MyCGI, 4);			//设置框架线型为预置值2（全部为单线）
 		gmw_set_rowno_switch(&MyCGI, true);					//显示行号
 		gmw_set_colno_switch(&MyCGI, true);					//显示列标
 			gmw_set_delay(&MyCGI, DELAY_OF_DRAW_FRAME, 200);		//画边框的延时
@@ -519,7 +519,7 @@ static void test_step_of_color_linez(CONSOLE_GRAPHICS_INFO *pColorLinez_CGI)
 		{0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 2, 0, 0, 0, 7, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 3, 0, 0, 0, 0},
+		{0, 0, 3, 3, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 6},
 		{0, 1, 0, 0, 0, 5, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0}
@@ -715,7 +715,7 @@ static void test_color_linez(void)
 	gmw_set_font(&ColorLinez_CGI, "新宋体", 32);							//字体
 //	gmw_set_frame_style(&ColorLinez_CGI);									//游戏主区域风格：每个色块宽2高1，有分隔线
 	gmw_set_frame_default_linetype(&ColorLinez_CGI, 2);					//游戏主区域线型：单线
-	gmw_set_frame_color(&ColorLinez_CGI, COLOR_HWHITE, COLOR_BLACK);		//游戏主区域颜色
+	gmw_set_frame_color(&ColorLinez_CGI,COLOR_HWHITE, COLOR_BLACK);		//游戏主区域颜色
 //	gmw_set_block_border_switch(&ColorLinez_CGI);							//每个游戏色块/彩球不需要边框
 //	gmw_set_status_line_switch(&ColorLinez_CGI, TOP_STATUS_LINE);				//需要上状态栏
 //	gmw_set_status_line_switch(&ColorLinez_CGI, LOWER_STATUS_LINE);			//需要下状态栏
@@ -933,15 +933,15 @@ static void test_step_of_2048(CONSOLE_GRAPHICS_INFO *pG2048_CGI)
 	int g2048[row][col] = {
 		{0, 0, 0, 0, 0},
 		{0, 2, 0, 0, 0},
-		{0, 0, 0, 4, 0},
+		{0, 0, 0, 19260817, 0},
 		{0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0},
 		{0, 2, 0, 0, 0},
 	};
 	int g2048_full[row][col] = {
-		{8192, 128, 131072, 256, 512},
+		{8192, 19260817, 131072, 256, 512},
 		{8, 2, 4096, 1024, 65536},
-		{16, 1024, 4, 4, 8192},
+		{16, 1024, 4, 19260817, 8192},
 		{64, 1024, 512, 256, 4096},
 		{2048, 32, 16384, 128, 2048},
 		{2, 8, 64, 32768, 16},
@@ -969,6 +969,7 @@ static void test_step_of_2048(CONSOLE_GRAPHICS_INFO *pG2048_CGI)
 		{32768, COLOR_HCYAN, COLOR_BLACK, NULL},
 		{65536, COLOR_HGREEN, COLOR_BLACK, NULL},
 		{131072, COLOR_HPINK, COLOR_BLACK, NULL},  //如果开心，还可以继续加
+		{19260817, COLOR_HGREEN, COLOR_BLACK, "口..口"},
 		{BDI_VALUE_END, -1, -1, NULL} //判断结束条件为-999
 	};
 
@@ -1403,6 +1404,42 @@ static void test_popstar(void)
 	test_step_of_popstar(&PopStar_CGI);
 }
 
+void mytest()
+{
+	CONSOLE_GRAPHICS_INFO CGI;
+	gmw_init(&CGI);
+
+	gmw_print(&CGI);
+	getchar();
+
+	gmw_draw_frame(&CGI);
+	getchar();
+	
+	gmw_set_ext_rowcol(&CGI, 3, 2, 4, 5);
+	gmw_set_color(&CGI, COLOR_RED, COLOR_BLUE, 1);
+	gmw_draw_frame(&CGI);
+	gmw_status_line(&CGI, TOP_STATUS_LINE, "123", "456");
+	getchar();
+
+
+	//gmw_set_status_line_switch(&CGI, TOP_STATUS_LINE, 1);
+	gmw_set_colno_switch(&CGI, 1);
+	gmw_set_delay(&CGI, DELAY_OF_DRAW_FRAME, 10);
+	gmw_draw_frame(&CGI);
+	getchar();
+
+	//CGI.CFI.separator = 0;
+	gmw_set_frame_style(&CGI, 4, 3, 0);
+	gmw_print(&CGI);
+	getchar();
+	gmw_set_rowno_switch(&CGI, 1);
+	gmw_draw_frame(&CGI);
+	getchar();
+
+	puts("done");
+	getchar();
+}
+
 /***************************************************************************
   函数名称：
   功    能：
@@ -1429,6 +1466,8 @@ int main(int argc, char** argv)
 		cout << "CONSOLE_GRAPHICS_INFO 不是492字节，如果使用 lib_tgmw_tools.lib 中的函数则可能出错" << endl;
 		return -1;
 	}
+
+	//mytest();
 
 	/* 用固定值测试框架 */
 	test_by_fixed();

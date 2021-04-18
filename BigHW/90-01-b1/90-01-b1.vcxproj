@@ -18,6 +18,20 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\cmd_console_tools.h" />
+    <ClInclude Include="..\include\hehepigIO.h" />
+    <ClInclude Include="..\include\hehepigMenu.h" />
+    <ClInclude Include="hanoi.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\common\cmd_console_tools.cpp" />
+    <ClCompile Include="..\common\hehepigIO.cpp" />
+    <ClCompile Include="..\common\hehepigMenu.cpp" />
+    <ClCompile Include="hanoi_main.cpp" />
+    <ClCompile Include="hanoi_menu.cpp" />
+    <ClCompile Include="hanoi_multiple_solutions.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -138,9 +152,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="90-01-b1-main.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

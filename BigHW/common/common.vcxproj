@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClCompile Include="cmd_console_tools.cpp" />
     <ClCompile Include="cmd_gmw_tools.cpp" />
+    <ClCompile Include="hehepigIO.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

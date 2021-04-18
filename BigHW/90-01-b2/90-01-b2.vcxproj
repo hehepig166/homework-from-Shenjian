@@ -18,6 +18,22 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\cmd_console_tools.h" />
+    <ClInclude Include="..\include\hehepigIO.h" />
+    <ClInclude Include="..\include\hehepigMenu.h" />
+    <ClInclude Include="mine_sweeper.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\common\cmd_console_tools.cpp" />
+    <ClCompile Include="..\common\hehepigIO.cpp" />
+    <ClCompile Include="..\common\hehepigMenu.cpp" />
+    <ClCompile Include="mine_sweeper_base.cpp" />
+    <ClCompile Include="mine_sweeper_graph.cpp" />
+    <ClCompile Include="mine_sweeper_main.cpp" />
+    <ClCompile Include="mine_sweeper_menu.cpp" />
+    <ClCompile Include="mine_sweeper_tools.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -138,9 +154,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="90-01-b2-main.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
