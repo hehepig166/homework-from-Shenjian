@@ -125,7 +125,12 @@
   <ItemGroup>
     <ClInclude Include="cmd_console_tools.h" />
     <ClInclude Include="cmd_gmw_tools.h" />
+    <ClInclude Include="cmd_hdc_tools.h" />
+    <ClInclude Include="hehepigDraw.h" />
     <ClInclude Include="hehepigIO.h" />
+    <ClInclude Include="hehepigMenu.h" />
+    <ClInclude Include="lib_tgmw_tools.h" />
+    <ClInclude Include="lib_thdc_tools.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

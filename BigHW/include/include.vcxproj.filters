@@ -24,5 +24,20 @@
     <ClInclude Include="hehepigIO.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="hehepigDraw.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="hehepigMenu.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="lib_tgmw_tools.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="cmd_hdc_tools.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="lib_thdc_tools.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
