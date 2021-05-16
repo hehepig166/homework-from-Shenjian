@@ -39,5 +39,8 @@
     <ClInclude Include="lib_thdc_tools.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CODE_GB2312.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

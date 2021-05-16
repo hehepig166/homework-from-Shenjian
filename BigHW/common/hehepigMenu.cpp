@@ -30,7 +30,7 @@ int Menu_char(int n, const char *OprChar, const char *HintStr[], int CaseSensiti
         cout << OprChar[i] << '.' << HintStr[i] << endl;
     cout << setw(Maxlen + 1) << setfill('-') << "" << endl;
     cout << setfill(' ');   //归位setfill
-    cout << "请选择 > ";
+    cout << "> ";
 
     // 获取选择
     while (1)
@@ -38,10 +38,16 @@ int Menu_char(int n, const char *OprChar, const char *HintStr[], int CaseSensiti
         ret = GetKey();
         for (p = OprChar + n - 1; p >= OprChar; p--)
         {
-            if (!CaseSensitive && InsensitiveCheck(*p, ret))
+            if (!CaseSensitive && InsensitiveCheck(*p, ret)) {
+                putchar(ret);
+                puts("");
                 return ret;
-            else if (*p == ret)
+            }
+            else if (*p == ret) {
+                putchar(ret);
+                puts("");
                 return ret;
+            }
         }
     }
 }

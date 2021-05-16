@@ -1,4 +1,4 @@
-/* 朱泽凯 2051995 济美 */
+/* 学号 姓名 班级 */
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <iomanip>
@@ -43,7 +43,7 @@ int select_test_item(char test_choice[])
 {
 	struct {
 		enum TEST_ITEM no;
-		const char* prompt;
+		const char *prompt;
 		int len;
 	} item[] = {
 		{T_POINT,     "点"},
@@ -65,7 +65,7 @@ int select_test_item(char test_choice[])
 
 	/* 求所有提示字符串的最大长度 */
 	for (i = 0; item[i].prompt; i++) {
-		item[i].len = (int)strlen(item[i].prompt);
+		item[i].len = strlen(item[i].prompt);
 		if (max_len < item[i].len)
 			max_len = item[i].len;
 	}
@@ -113,7 +113,7 @@ int select_test_item(char test_choice[])
   返 回 值：
   说    明：
 ***************************************************************************/
-static void to_be_continued(const char* prompt, const int X = 0, const int Y = 22)
+static void to_be_continued(const char *prompt, const int X = 0, const int Y = 22)
 {
 	//先输出一行空格，为了清空上次字符串比本次长而多出来的后续部分
 	cct_gotoxy(X, Y);
@@ -137,7 +137,6 @@ static void to_be_continued(const char* prompt, const int X = 0, const int Y = 2
 	return;
 }
 
-
 /***************************************************************************
   函数名称：
   功    能：
@@ -145,22 +144,20 @@ static void to_be_continued(const char* prompt, const int X = 0, const int Y = 2
   返 回 值：
   说    明：
 ***************************************************************************/
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
-	
 	const int   win_width = 800, win_high = 800;	//设定屏幕宽度
 	const int   win_bgcolor = COLOR_WHITE, win_fgcolor = COLOR_HRED;
 	const int   color[] = { 0x00FF0000, 0x0000FF00, 0x000000FF }; //R G B
 	const int   STL_X = 0, STL_Y = win_high / 16 - 5;	//状态行的起始坐标
-	const char* fill_str[] = { "空心", "实心" };
+	const char *fill_str[] = { "空心", "实心" };
 
 	char test_choise[1024] = "111111111111";
 	char tmp[80];
 	int i, round;
 	int delay_ms = 0; //初始为不延时
 
-
-#if 0
+#if 1
 	cout << "请选择自动演示(0)还是单步演示(1) : ";
 	while (1) {
 		need_enter = _getch();
@@ -180,18 +177,12 @@ int main(int argc, char** argv)
 
 	long t_end, t_start = GetTickCount(); //取当前系统时间，单位毫秒，精度55ms
 
-	//srand((unsigned int)time(0));
+	srand((unsigned int)time(0));
 
 	hdc_init(win_bgcolor, win_fgcolor, win_width, win_high);		//用(背景色，前景色，宽度，高度）初始化窗口
 
 	/* 设置延时时的延时，0表示不延时，单位ms */
 	hdc_set_delay(delay_ms);
-
-	//Sleep(1000);
-	hdc_draw_Mathematical_curve_2051995();
-	hdc_draw_catoon_2051995(400, 400);
-	char ccccc=getchar();
-	hdc_cls();
 
 	//画点函数测试
 	if (test_choise[T_POINT] == '1') {
@@ -235,14 +226,6 @@ int main(int argc, char** argv)
 	//划线函数测试
 	if (test_choise[T_LINE] == '1') {
 		hdc_cls();
-
-		hdc_line(50, 50, 300, 500, 6, RGB(rand() % 256, rand() % 256, rand() % 256));
-		hdc_line(50, 50, 300, 400, 6, RGB(rand() % 256, rand() % 256, rand() % 256));
-		hdc_line(50, 50, 300, 300, 6, RGB(rand() % 256, rand() % 256, rand() % 256));
-		hdc_line(50, 50, 300, 200, 6, RGB(rand() % 256, rand() % 256, rand() % 256));
-		hdc_line(50, 50, 300, 0, 6, RGB(rand() % 256, rand() % 256, rand() % 256));
-		//hdc_point(100, 100, 6, RGB(rand() % 256, rand() % 256, rand() % 256));
-
 
 		/* 横线(双向) */
 		hdc_line(100, 100, 500, 100, 2, RGB(rand() % 256, rand() % 256, rand() % 256));
@@ -391,19 +374,6 @@ int main(int argc, char** argv)
 			{-1, -1},
 		};
 
-		/*
-		hdc_line(350, 350, 350, 0);
-
-		hdc_arc(350, 350, 50, 0, 360);
-		hdc_arc(350, 350, 60, 10, 380);
-		hdc_arc(350, 350, 70, 5, 366);
-		hdc_arc(350, 350, 80, 5, 365);
-		hdc_arc(350, 350, 100, 50, 10);
-		hdc_arc(350, 350, 200, -370, -5);
-		hdc_arc(350, 350, 250, -5, -370);
-		hdc_arc(350, 350, 300, 10, 380);
-		*/
-
 		/* 先测试几个指定大小的，目的是为了验证角度计算的正确性 */
 		for (i = 0; t[i].angle_begin != -1 && t[i].angle_end != -1; i++) {
 			char tmp[80];
@@ -523,8 +493,6 @@ int main(int argc, char** argv)
 	if (test_choise[T_ELLIPSE] == '1') {
 		hdc_cls();
 
-		hdc_ellipse(350, 350, 400, 300, 30, true);
-
 		/* 先测试椭圆的旋转，目的是为了验证旋转的的正确性 */
 		for (round = 0; round <= 1; round++)
 			for (i = 0; i < 360; i += 15) {
@@ -537,7 +505,6 @@ int main(int argc, char** argv)
 
 		hdc_cls();
 		//随机显示20个椭圆
-		hdc_ellipse(500, 600, 300, 100, 40, false, 10, RGB(50, 70, 100));
 		for (i = 0; i < 20; i++) {
 			int x, y, a, b, angle;
 

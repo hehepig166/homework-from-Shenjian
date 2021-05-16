@@ -126,7 +126,9 @@
     <ClCompile Include="cmd_console_tools.cpp" />
     <ClCompile Include="cmd_gmw_tools.cpp" />
     <ClCompile Include="cmd_hdc_tools.cpp" />
+    <ClCompile Include="CODE_GB2312.cpp" />
     <ClCompile Include="hehepigIO.cpp" />
+    <ClCompile Include="hehepigMenu.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
