@@ -8,6 +8,7 @@
 ||90-02-b1|消灭星星游戏|
 |2021-4-18|90-02-b2|合成十|
 |2021-5-2|90-02-b3|动态甜甜圈、QQ头像作图|
+|2021-5-16|90-02-b4|GB2312 模拟LED动态点阵|
 
 # hint
 BigHW-202104090904.rar 为最改成老师提供的 gmw 伪图形界面工具集之前的最后一次备份。
@@ -22,3 +23,4 @@ bilibili账号链接：[椿_湫(https://space.bilibili.com/43250497)](https://sp
 扫雷演示：[https://www.bilibili.com/video/BV18K4y1P7XM](https://www.bilibili.com/video/BV18K4y1P7XM)
 <br>
 动态甜甜圈演示：[https://www.bilibili.com/video/BV1jv41177fX](https://www.bilibili.com/video/BV1jv41177fX)
+
