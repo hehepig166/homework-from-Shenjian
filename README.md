@@ -34,3 +34,14 @@
 ||15-b2.cpp|斗地主发牌|按位存储|
 ||15-b3.cpp|作业相似度匹配参数解析|带固定数量参main函数应用实践
 ||15-b4.cpp|模拟ping的参数解析|带不定数量参main函数应用|
+|Week 8|16-b1-TString.h|TStringAdv类-基类.h|继承与派生|
+||16-b1-TString.cpp|TStringAdv类-基类.cpp||
+||16-b1-TStringAdv.h|TStringAdv类-派生类.h||
+||16-b1-TStringAdv.cpp|TStringAdv类-派生类.cpp||
+||16-b1-main.cpp|TStringAdv类-main.cpp||
+|Week 9|17-b1.pdf|文件格式及读写差异（C++方式）|0D0A|
+|17-b2.cpp|Windows/Linux文件格式测试及互转|流输入输出|
+||17-b3.cpp|文件的16进制查看器||
+||17-b4.cpp|16进制查看器逆转换||
+||17-b5-1.cpp|改游戏配置文件（C++方式，任意）||
+||17-b5-2.cpp|改游戏配置文件（C++方式，限定）||
