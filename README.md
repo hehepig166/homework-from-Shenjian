@@ -40,8 +40,8 @@
 ||16-b1-TStringAdv.cpp|TStringAdv类-派生类.cpp||
 ||16-b1-main.cpp|TStringAdv类-main.cpp||
 |Week 9|17-b1.pdf|文件格式及读写差异（C++方式）|0D0A|
-|17-b2.cpp|Windows/Linux文件格式测试及互转|流输入输出|
+||17-b2.cpp|Windows/Linux文件格式测试及互转|流输入输出|
 ||17-b3.cpp|文件的16进制查看器||
 ||17-b4.cpp|16进制查看器逆转换||
-||17-b5-1.cpp|改游戏配置文件（C++方式，任意）||
+||17-b5-1.cpp|改游戏配置文件（C++方式，任意）|继承，虚函数|
 ||17-b5-2.cpp|改游戏配置文件（C++方式，限定）||
