@@ -10,13 +10,6 @@
 #include <cstring>
 #include <iomanip>
 
-
-#if defined(__linux) || defined(__linux__)
-#include<curses.h>
-#else
-#include <conio.h>
-#endif
-
 using namespace std;
 
 
@@ -294,9 +287,6 @@ int modify()
 ***************************************************************************/
 int main(int argc, const char *argv[])
 {
-#if defined(__linux) || defined(__linux__)
-
-#endif
 
     if (argc == 2 && strcmp(argv[1], "--read") == 0)
         read();
@@ -304,9 +294,6 @@ int main(int argc, const char *argv[])
         modify();
     else
         puts("usage : 17-b5-demo --modify | --read");
-
-#if defined(__linux) || defined(__linux__)
-#endif
 
     return 0;
 }
