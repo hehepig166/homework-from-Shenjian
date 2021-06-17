@@ -52,5 +52,5 @@
 ||17-b6-bmp.h|bmp图像读取-源文件||
 ||17-b7.cpp|作业首行检查|Windows/Linux目录遍历|
 |Week 12|17-b8.cpp|QQ聊天记录分析|文本文件分析+信息统计|
-||my_array.h|my_array的定义||
+||my_array.h|my_array的定义|iterator|
 ||my_array.cpp|my_array的实现||
