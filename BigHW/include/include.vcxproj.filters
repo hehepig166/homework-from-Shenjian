@@ -42,5 +42,8 @@
     <ClInclude Include="CODE_GB2312.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="cfg_file_tools.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
