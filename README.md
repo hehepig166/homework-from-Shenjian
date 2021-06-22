@@ -54,3 +54,9 @@
 |Week 12|17-b8.cpp|QQ聊天记录分析|文本文件分析+信息统计|
 ||my_array.h|my_array的定义|iterator|
 ||my_array.cpp|my_array的实现||
+||19-b1.pdf|数据结构第1章练习题||
+|Week 12|19-b2.pdf|数据结构第2章练习题||
+||final.pdf|意见与建议(学期末)||
+||19-b1-linear_list_L.h|带头单链表-6合1-头文件||
+||19-b1-linear_list_L.c|带头单链表-6合1-实现||
+||19-b1-linear_list_L_main.c|带头单链表-6合1-测试用例||
